@@ -14,33 +14,61 @@
 
 <!-- ===== HERO ===== -->
 <header class="hero">
-  <div class="hero-inner">
-    <span class="eyebrow">Sahabat Kapal Api</span>
-    <h1>Setiap hal besar<br>mulai dari <em>satu seduhan</em>.</h1>
-    <p>Kamu baru saja masuk ke ruang yang isinya orang-orang yang lagi ngerjain sesuatu — bikin usaha, ngejar skill, atau sekadar cari teman seperjalanan. Ambil tempat duduk kamu.</p>
-    <a href="#gabung" class="hero-cta">
-      Ambil tempat duduk
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  </div>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <span class="eyebrow">Sahabat Kapal Api</span>
+      <h1>Setiap hal besar<br>mulai dari <em>satu seduhan</em>.</h1>
+      <p>Kamu baru saja masuk ke ruang yang isinya orang-orang yang lagi ngerjain sesuatu — bikin usaha, ngejar skill, atau sekadar cari teman seperjalanan. Ambil tempat duduk kamu.</p>
+      <a href="#gabung" class="hero-cta">
+        Ambil tempat duduk
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
 
-  <div class="cup-stage">
-    <div class="steam-wrap" aria-hidden="true">
-      <span class="steam-wisp"></span>
-      <span class="steam-wisp"></span>
-      <span class="steam-wisp"></span>
-    </div>
-    <div class="cup-visual">
-      <img class="cup-img" id="cupImg" src="assets/images/cup-mockup.png" alt="Cangkir kopi to-go Kapal Api">
-      <div class="cup-logo-badge" id="cupLogo" aria-hidden="true">
-        <img src="assets/images/logo-badge.png" alt="">
+      <div class="cup-stage">
+        <div class="steam-wrap" aria-hidden="true">
+          <span class="steam-wisp"></span>
+          <span class="steam-wisp"></span>
+          <span class="steam-wisp"></span>
+        </div>
+        <div class="cup-visual">
+          <img class="cup-img" id="cupImg" src="assets/images/cup-mockup.png" alt="Gelas to-go Sahabat Kapal Api">
+        </div>
+        <p class="cup-status" id="cupStatus">Sedang diseduh...</p>
+        <button class="brew-btn" id="brewBtn" type="button">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.7 4.3A6 6 0 102 8h1.5A4.5 4.5 0 1112.6 5.4L10 8h5V3l-1.3 1.3z" fill="currentColor"/></svg>
+          Seduh Ulang
+        </button>
       </div>
     </div>
-    <p class="cup-status" id="cupStatus">Sedang diseduh...</p>
-    <button class="brew-btn" id="brewBtn" type="button">
-      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.7 4.3A6 6 0 102 8h1.5A4.5 4.5 0 1112.6 5.4L10 8h5V3l-1.3 1.3z" fill="currentColor"/></svg>
-      Seduh Ulang
-    </button>
+
+    <div class="hero-right">
+      <div class="cup-cluster">
+        <div class="cluster-cup cluster-cup-1">
+          <div class="cluster-cup-float">
+            <img class="cup-mockup" src="assets/images/cup-mockup-tight.png" alt="" style="--tint: hue-rotate(95deg) saturate(1.3) brightness(1.05)">
+          </div>
+          <span class="cluster-label">Teh Hijau</span>
+        </div>
+        <div class="cluster-cup cluster-cup-2">
+          <div class="cluster-cup-float">
+            <img class="cup-mockup" src="assets/images/cup-mockup-tight.png" alt="" style="--tint: hue-rotate(35deg) saturate(.55) brightness(1.18)">
+          </div>
+          <span class="cluster-label">Teh Melati</span>
+        </div>
+        <div class="cluster-cup cluster-cup-3">
+          <div class="cluster-cup-float">
+            <img class="cup-mockup" src="assets/images/cup-mockup-tight.png" alt="" style="--tint: hue-rotate(-25deg) saturate(1.35) brightness(.92)">
+          </div>
+          <span class="cluster-label">Es Teh Manis</span>
+        </div>
+        <div class="cluster-cup cluster-cup-4">
+          <div class="cluster-cup-float">
+            <img class="cup-mockup" src="assets/images/cup-mockup-tight.png" alt="" style="--tint: saturate(1.15)">
+          </div>
+          <span class="cluster-label">Teh Tarik</span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -83,23 +111,23 @@
     </div>
 
     <div class="agenda rv">
-      <div class="agenda-row">
+      <a class="agenda-row" href="agenda.html#agenda-1">
         <div class="ag-date">JUL<b>19</b>2026</div>
         <div class="ag-body">
           <h4>Ngobrol Bareng: Mulai Usaha Modal Nekat</h4>
           <p>Sesi santai bareng founder yang mulai dari nol. Online, 19.30 WIB.</p>
         </div>
         <span class="ag-tag">Online</span>
-      </div>
-      <div class="agenda-row">
+      </a>
+      <a class="agenda-row" href="agenda.html#agenda-2">
         <div class="ag-date">JUL<b>26</b>2026</div>
         <div class="ag-body">
           <h4>Workshop: Bikin Konten yang Dilihat Orang</h4>
           <p>Praktik langsung. Bawa HP, pulang bawa konten jadi. Jakarta Selatan.</p>
         </div>
         <span class="ag-tag">Offline</span>
-      </div>
-      <div class="agenda-row">
+      </a>
+      <a class="agenda-row" href="agenda.html#agenda-3">
         <div class="ag-date">AGT<b>09</b>2026</div>
         <div class="ag-body">
           <h4>Kopdar Perdana Sahabat Kapal Api</h4>
@@ -107,7 +135,7 @@
           <span class="anchor-tag" title="Anchor V1→V2: prioritas kuota butuh data member terdaftar — sumbernya dari form di bawah.">⚓ Anchor V2</span>
         </div>
         <span class="ag-tag">Offline</span>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -121,47 +149,82 @@
       <p>30 detik. Supaya kami tahu harus kirim apa ke kamu — bukan spam ke semua orang.</p>
     </div>
 
-    <div class="form-card rv">
-      <div class="field">
-        <label for="nama">Nama panggilan</label>
-        <input type="text" id="nama" placeholder="Yang biasa dipanggil orang" autocomplete="given-name">
+    <div class="form-layout">
+      <div class="form-card rv">
+        <div class="field">
+          <label for="nama">Nama panggilan</label>
+          <input type="text" id="nama" placeholder="Yang biasa dipanggil orang" autocomplete="given-name">
+        </div>
+
+        <div class="field">
+          <label for="wa">Nomor WhatsApp</label>
+          <input type="tel" id="wa" placeholder="08xx xxxx xxxx" autocomplete="tel">
+        </div>
+
+        <div class="field">
+          <label for="minat">Kamu lagi fokus ke apa?</label>
+          <select id="minat">
+            <option value="">Pilih satu</option>
+            <option value="usaha">Bangun usaha sendiri</option>
+            <option value="skill">Nambah skill / cari kerja</option>
+            <option value="komunitas">Cari komunitas & koneksi</option>
+            <option value="lainnya">Masih cari arah</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="kota">Kota kamu</label>
+          <input type="text" id="kota" placeholder="Contoh: Bandung" autocomplete="address-level2">
+        </div>
+
+        <button class="form-btn" id="submitBtn" type="button">
+          <span class="btn-spinner" aria-hidden="true"></span>
+          <span class="btn-label">Gabung Sahabat Kapal Api</span>
+          <svg class="btn-check" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <div class="form-msg" id="formMsg" role="status" aria-live="polite">
+          ✓ Terkirim. Kami kabari lewat WhatsApp untuk agenda terdekat.
+        </div>
+        <a href="https://wa.me/6282299223322" id="waFollowup" class="wa-followup" target="_blank" rel="noopener noreferrer">
+          Lanjut chat via WhatsApp →
+        </a>
+
+        <p class="form-note">
+          Data kamu dipakai untuk mengirim info agenda &amp; program komunitas. Tidak dibagikan ke pihak ketiga.
+          <span class="addon" title="Add-on: penyimpanan data ke database, dedup nomor WA, dan auto-reply butuh backend + WhatsApp Business API. Termasuk di scope V2.">💰 Add-on</span>
+        </p>
       </div>
 
-      <div class="field">
-        <label for="wa">Nomor WhatsApp</label>
-        <input type="tel" id="wa" placeholder="08xx xxxx xxxx" autocomplete="tel">
+      <div class="guest-preview rv">
+        <span class="guest-preview-label">Tamu undangan bulan ini</span>
+        <div class="guest-mini-list">
+          <a class="guest-mini" href="agenda.html#agenda-1">
+            <img class="guest-mini-photo" src="assets/images/guests/ferry-irwandi.jpg" alt="Ferry Irwandi">
+            <div class="guest-mini-info">
+              <div class="guest-mini-name">Ferry Irwandi</div>
+              <div class="guest-mini-role">Content Creator &amp; Pengamat Ekonomi</div>
+              <div class="guest-mini-event">Ngobrol Bareng: Mulai Usaha Modal Nekat</div>
+            </div>
+          </a>
+          <a class="guest-mini" href="agenda.html#agenda-2">
+            <img class="guest-mini-photo" src="assets/images/guests/cania-citta.jpg" alt="Cania Citta">
+            <div class="guest-mini-info">
+              <div class="guest-mini-name">Cania Citta</div>
+              <div class="guest-mini-role">Content Creator &amp; Entrepreneur</div>
+              <div class="guest-mini-event">Workshop: Bikin Konten yang Dilihat Orang</div>
+            </div>
+          </a>
+          <a class="guest-mini" href="agenda.html#agenda-3">
+            <img class="guest-mini-photo" src="assets/images/guests/coki-pardede.jpg" alt="Coki Pardede">
+            <div class="guest-mini-info">
+              <div class="guest-mini-name">Coki Pardede</div>
+              <div class="guest-mini-role">Komedian &amp; Content Creator</div>
+              <div class="guest-mini-event">Kopdar Perdana Sahabat Kapal Api</div>
+            </div>
+          </a>
+        </div>
       </div>
-
-      <div class="field">
-        <label for="minat">Kamu lagi fokus ke apa?</label>
-        <select id="minat">
-          <option value="">Pilih satu</option>
-          <option value="usaha">Bangun usaha sendiri</option>
-          <option value="skill">Nambah skill / cari kerja</option>
-          <option value="komunitas">Cari komunitas & koneksi</option>
-          <option value="lainnya">Masih cari arah</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="kota">Kota kamu</label>
-        <input type="text" id="kota" placeholder="Contoh: Bandung" autocomplete="address-level2">
-      </div>
-
-      <button class="form-btn" id="submitBtn" type="button">
-        <span class="btn-spinner" aria-hidden="true"></span>
-        <span class="btn-label">Gabung Sahabat Kapal Api</span>
-        <svg class="btn-check" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-
-      <div class="form-msg" id="formMsg" role="status" aria-live="polite">
-        ✓ Terkirim. Kami kabari lewat WhatsApp untuk agenda terdekat.
-      </div>
-
-      <p class="form-note">
-        Data kamu dipakai untuk mengirim info agenda &amp; program komunitas. Tidak dibagikan ke pihak ketiga.
-        <span class="addon" title="Add-on: penyimpanan data ke database, dedup nomor WA, dan auto-reply butuh backend + WhatsApp Business API. Termasuk di scope V2.">💰 Add-on</span>
-      </p>
     </div>
   </div>
 </section>
@@ -173,15 +236,15 @@
       <span class="sec-label" style="text-align:center">Tetap terhubung</span>
       <h2>Jangan sampai ketinggalan.</h2>
       <div class="cta-links">
-        <a href="#" class="cta-link">
+        <a href="https://wa.me/6282299223322" class="cta-link" target="_blank" rel="noopener noreferrer">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7 1-.3.2-.5.1a6.6 6.6 0 01-1.9-1.2 7.3 7.3 0 01-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2A5.2 5.2 0 009 12.3a11.9 11.9 0 004.5 4 7.6 7.6 0 001.5.5 3.6 3.6 0 001.7.1 2.7 2.7 0 001.8-1.3 2.2 2.2 0 00.2-1.3c0-.1-.2-.2-.3-.3z"/></svg>
           WhatsApp Channel
         </a>
-        <a href="#" class="cta-link">
+        <a href="https://instagram.com/kapalapi_id" class="cta-link" target="_blank" rel="noopener noreferrer">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1a6.6 6.6 0 012.2.4 3.9 3.9 0 012.2 2.2 6.6 6.6 0 01.4 2.2c.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9a6.6 6.6 0 01-.4 2.2 3.9 3.9 0 01-2.2 2.2 6.6 6.6 0 01-2.2.4c-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1a6.6 6.6 0 01-2.2-.4 3.9 3.9 0 01-2.2-2.2 6.6 6.6 0 01-.4-2.2c-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9a6.6 6.6 0 01.4-2.2A3.9 3.9 0 014.9 2.7a6.6 6.6 0 012.2-.4c1.3-.1 1.7-.1 4.9-.1zm0 1.8c-3.1 0-3.5 0-4.7.1a4.8 4.8 0 00-1.7.3 2.9 2.9 0 00-1.6 1.6 4.8 4.8 0 00-.3 1.7C3.6 8.9 3.6 9.3 3.6 12s0 3.1.1 4.3a4.8 4.8 0 00.3 1.7 2.9 2.9 0 001.6 1.6 4.8 4.8 0 001.7.3c1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1a4.8 4.8 0 001.7-.3 2.9 2.9 0 001.6-1.6 4.8 4.8 0 00.3-1.7c.1-1.2.1-1.6.1-4.3s0-3.1-.1-4.3a4.8 4.8 0 00-.3-1.7 2.9 2.9 0 00-1.6-1.6 4.8 4.8 0 00-1.7-.3c-1.2-.1-1.6-.1-4.7-.1zm0 3.1a4.9 4.9 0 110 9.8 4.9 4.9 0 010-9.8zm0 8a3.1 3.1 0 100-6.2 3.1 3.1 0 000 6.2zm6.2-8.2a1.2 1.2 0 11-2.3 0 1.2 1.2 0 012.3 0z"/></svg>
           Instagram
         </a>
-        <a href="#" class="cta-link">
+        <a href="https://www.tiktok.com/@kapalapi.store" class="cta-link" target="_blank" rel="noopener noreferrer">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 10.1a5.5 5.5 0 01-3.6-1.3v6.4a5.7 5.7 0 11-4.9-5.6v2.9a2.8 2.8 0 102 2.7V2h2.9a5.5 5.5 0 003.6 4.9z"/></svg>
           TikTok
         </a>
@@ -194,14 +257,14 @@
 <footer>
   <div class="foot-grid">
     <div>
-      <div class="foot-brand"><img src="assets/images/logo-badge.png" alt="" class="foot-logo">Sahabat Kapal Api</div>
+      <div class="foot-brand"><img src="assets/images/logo-kapal-api-trimmed.svg" alt="" class="foot-logo">Sahabat Kapal Api</div>
       <div>Komunitas resmi Kapal Api Group.</div>
     </div>
     <div class="foot-links">
       <a href="#gabung" class="u-link">Gabung</a>
-      <a href="#" class="u-link">Agenda</a>
-      <a href="#" class="u-link">Kontak</a>
-      <a href="#" class="u-link">Kebijakan Privasi</a>
+      <a href="agenda.html" class="u-link">Agenda</a>
+      <a href="https://wa.me/6282299223322" class="u-link" target="_blank" rel="noopener noreferrer">Kontak</a>
+      <a href="kebijakan-privasi.html" class="u-link">Kebijakan Privasi</a>
     </div>
   </div>
   <div class="foot-fine">

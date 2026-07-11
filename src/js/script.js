@@ -1,4 +1,4 @@
-// script.js — scroll reveals, coffee brew restart, form micro-interactions.
+// script.js — scroll reveals, hero brew restart, form micro-interactions.
 // No animation loops here: every motion is a CSS @keyframes/transition;
 // JS only toggles classes to start/stop/replay them.
 
@@ -24,10 +24,9 @@
     revealTargets.forEach(function (el) { el.classList.add('in'); });
   }
 
-  // ---- Coffee brewing hero: cup reveal, steam ramp, logo pop, status text, restart ----
+  // ---- Hero brew: cup reveal, steam ramp, status text, restart ----
   var brewBtn = document.getElementById('brewBtn');
   var cupImg = document.getElementById('cupImg');
-  var cupLogo = document.getElementById('cupLogo');
   var steamWrap = document.querySelector('.steam-wrap');
   var cupStatus = document.getElementById('cupStatus');
   var BREW_MS = 3500;
@@ -73,7 +72,6 @@
       if (reduceMotion) return; // cup is already shown fully brewed, nothing to replay
       brewBtn.classList.add('is-replaying');
       restartCssAnimation(cupImg);
-      restartCssAnimation(cupLogo);
       restartCssAnimation(steamWrap);
       if (cupStatus) {
         cupStatus.classList.remove('fade');
@@ -89,6 +87,7 @@
   // ---- Form micro-interactions (frontend-only demo; real submit is the V2 add-on) ----
   var submitBtn = document.getElementById('submitBtn');
   var formMsg = document.getElementById('formMsg');
+  var waFollowup = document.getElementById('waFollowup');
   var btnLabel = submitBtn ? submitBtn.querySelector('.btn-label') : null;
 
   function showMessage(text, ok) {
@@ -100,6 +99,12 @@
     formMsg.classList.remove('pop');
     // Small anticipation delay before the pop-in plays.
     window.setTimeout(function () { formMsg.classList.add('pop'); }, reduceMotion ? 0 : 300);
+
+    if (ok && waFollowup) {
+      waFollowup.classList.add('show');
+      waFollowup.classList.remove('pop');
+      window.setTimeout(function () { waFollowup.classList.add('pop'); }, reduceMotion ? 0 : 450);
+    }
   }
 
   if (submitBtn) {
