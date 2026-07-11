@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahabat Kapal Api — Selamat Datang di Komunitas</title>
+<meta name="description" content="Ruang tumbuh bareng untuk anak muda yang lagi ngerjain sesuatu. Selamat datang di Sahabat Kapal Api.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1410;
+    --roast:#3B2317;
+    --ember:#C1440E;
+    --crema:#E8C79A;
+    --steam:#FBF7F1;
+    --paper:#F4EDE3;
+    --line:rgba(59,35,23,.14);
+    --muted:#6B5749;
+
+    --display:'Bricolage Grotesque', system-ui, sans-serif;
+    --body:'Instrument Sans', system-ui, sans-serif;
+    --mono:'JetBrains Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    background:var(--steam);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--ember);color:var(--steam)}
+
+  /* ================= DEMO ANNOTATION SYSTEM ================= */
+  .hx-topbar{
+    position:sticky;top:0;z-index:200;
+    background:#0F172A;color:#E2E8F0;
+    font-family:var(--mono);font-size:11px;letter-spacing:.03em;
+    padding:9px 16px;
+    display:flex;gap:10px;align-items:center;justify-content:center;
+    flex-wrap:wrap;text-align:center;
+    border-bottom:1px solid #1E293B;
+  }
+  .hx-topbar b{color:#0EA5E9;font-weight:500}
+  .hx-topbar .dot{color:#475569}
+
+  .addon{
+    display:inline-flex;align-items:center;gap:4px;
+    font-family:var(--mono);font-size:10px;font-weight:500;
+    background:#0EA5E9;color:#fff;
+    padding:2px 7px;border-radius:99px;
+    vertical-align:middle;margin-left:6px;
+    cursor:help;white-space:nowrap;
+    box-shadow:0 1px 4px rgba(14,165,233,.4);
+  }
+  .anchor-tag{
+    display:inline-flex;align-items:center;gap:4px;
+    font-family:var(--mono);font-size:10px;font-weight:500;
+    background:#166534;color:#fff;
+    padding:2px 7px;border-radius:99px;
+    vertical-align:middle;margin-left:6px;
+    cursor:help;white-space:nowrap;
+  }
+  .hx-legend{
+    position:fixed;bottom:0;left:0;right:0;z-index:200;
+    background:#0F172A;color:#94A3B8;
+    font-family:var(--mono);font-size:10.5px;
+    padding:8px 16px;
+    display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+    border-top:1px solid #1E293B;
+  }
+  .hx-legend span{display:flex;align-items:center;gap:6px}
+  .sw{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+  /* ================= STEAM SIGNATURE ================= */
+  .steam-wrap{
+    position:absolute;
+    left:50%;transform:translateX(-50%);
+    bottom:100%;
+    width:120px;height:180px;
+    pointer-events:none;
+    opacity:.5;
+  }
+  .steam-wisp{
+    position:absolute;bottom:0;
+    width:2px;height:100%;
+    background:linear-gradient(to top,rgba(232,199,154,.9),rgba(232,199,154,0));
+    border-radius:99px;
+    transform-origin:bottom center;
+    animation:rise 6s ease-in-out infinite;
+  }
+  .steam-wisp:nth-child(1){left:30%;animation-delay:0s;height:80%}
+  .steam-wisp:nth-child(2){left:50%;animation-delay:1.4s;height:100%}
+  .steam-wisp:nth-child(3){left:70%;animation-delay:2.8s;height:70%}
+  @keyframes rise{
+    0%   {opacity:0;transform:translateY(20px) scaleY(.4) skewX(0deg)}
+    25%  {opacity:.8}
+    50%  {transform:translateY(-10px) scaleY(1) skewX(6deg)}
+    75%  {opacity:.5;transform:translateY(-30px) scaleY(1.1) skewX(-4deg)}
+    100% {opacity:0;transform:translateY(-50px) scaleY(1.2) skewX(3deg)}
+  }
+
+  /* ================= HERO ================= */
+  .hero{
+    position:relative;
+    min-height:88vh;
+    display:flex;align-items:center;
+    background:
+      radial-gradient(120% 80% at 50% 110%, rgba(193,68,14,.16) 0%, transparent 60%),
+      linear-gradient(170deg,#241812 0%, #3B2317 55%, #4A2E1E 100%);
+    color:var(--steam);
+    padding:80px 24px 90px;
+    overflow:hidden;
+  }
+  .hero::after{
+    /* grain */
+    content:'';position:absolute;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;pointer-events:none;
+  }
+  .hero-inner{
+    position:relative;z-index:2;
+    max-width:900px;margin:0 auto;
+    text-align:center;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--crema);
+    margin-bottom:28px;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before,.eyebrow::after{
+    content:'';width:28px;height:1px;background:rgba(232,199,154,.4);
+  }
+  h1{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(2.6rem,7.5vw,5.4rem);
+    line-height:.98;
+    letter-spacing:-.03em;
+    margin-bottom:26px;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--ember);
+    position:relative;
+    display:inline-block;
+  }
+  h1 em::after{
+    content:'';position:absolute;
+    left:-2%;right:-2%;bottom:.1em;height:.14em;
+    background:var(--crema);
+    opacity:.28;border-radius:99px;
+    transform:rotate(-.6deg);
+  }
+  .hero p{
+    font-size:clamp(1.02rem,2.1vw,1.24rem);
+    line-height:1.65;
+    color:rgba(251,247,241,.78);
+    max-width:600px;margin:0 auto 40px;
+  }
+  .hero-cta{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--ember);color:#fff;
+    font-family:var(--display);font-weight:600;font-size:1.02rem;
+    padding:17px 34px;border-radius:99px;
+    text-decoration:none;
+    box-shadow:0 8px 28px rgba(193,68,14,.36);
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
+  }
+  .hero-cta:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(193,68,14,.5)}
+  .hero-cta:focus-visible{outline:3px solid var(--crema);outline-offset:3px}
+
+  /* The cup — signature anchor at bottom of hero */
+  .cup-stage{
+    position:absolute;
+    bottom:-2px;left:50%;transform:translateX(-50%);
+    width:190px;
+    z-index:3;
+  }
+  .cup{
+    position:relative;
+    width:190px;height:64px;
+    background:linear-gradient(180deg,#0F0A07 0%, #1A1410 100%);
+    border-radius:14px 14px 0 0;
+    border:1px solid rgba(232,199,154,.22);
+    border-bottom:none;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cup::before{
+    /* the coffee surface */
+    content:'';
+    position:absolute;top:8px;left:12px;right:12px;height:12px;
+    background:radial-gradient(ellipse at 50% 50%, #6B3E22 0%, #2E1B10 100%);
+    border-radius:99px;
+    box-shadow:inset 0 1px 2px rgba(232,199,154,.25);
+  }
+  .cup-label{
+    font-family:var(--mono);
+    font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(232,199,154,.55);
+    margin-top:16px;
+  }
+
+  /* ================= SECTIONS ================= */
+  section{padding:96px 24px}
+  .wrap{max-width:1080px;margin:0 auto}
+
+  .sec-head{margin-bottom:52px;max-width:640px}
+  .sec-label{
+    font-family:var(--mono);
+    font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ember);
+    margin-bottom:16px;display:block;
+  }
+  h2{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(1.9rem,4.4vw,3rem);
+    line-height:1.06;
+    letter-spacing:-.025em;
+    color:var(--roast);
+  }
+  .sec-head p{
+    margin-top:18px;
+    font-size:1.04rem;line-height:1.68;color:var(--muted);
+  }
+
+  /* Value grid — the "3 seduhan" */
+  .val-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:20px;
+    overflow:hidden;
+  }
+  .val{
+    background:var(--paper);
+    padding:38px 32px 40px;
+    position:relative;
+    transition:background .3s;
+  }
+  .val:hover{background:#EFE5D8}
+  .val-num{
+    font-family:var(--mono);
+    font-size:11px;color:var(--ember);
+    letter-spacing:.14em;
+    margin-bottom:22px;display:block;
+  }
+  .val h3{
+    font-family:var(--display);
+    font-weight:600;font-size:1.32rem;
+    color:var(--roast);
+    margin-bottom:12px;
+    line-height:1.24;
+  }
+  .val p{font-size:.955rem;line-height:1.68;color:var(--muted)}
+
+  /* Program / agenda — receipt-strip motif */
+  .agenda{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:20px;
+    overflow:hidden;
+  }
+  .agenda-row{
+    display:grid;
+    grid-template-columns:110px 1fr auto;
+    gap:24px;align-items:center;
+    padding:26px 30px;
+    border-bottom:1px dashed var(--line);
+    transition:background .25s;
+  }
+  .agenda-row:last-child{border-bottom:none}
+  .agenda-row:hover{background:#EFE5D8}
+  .ag-date{
+    font-family:var(--mono);
+    font-size:.82rem;color:var(--ember);
+    line-height:1.5;
+  }
+  .ag-date b{display:block;font-size:1.5rem;color:var(--roast);font-weight:500}
+  .ag-body h4{
+    font-family:var(--display);font-weight:600;
+    font-size:1.13rem;color:var(--roast);margin-bottom:5px;
+  }
+  .ag-body p{font-size:.925rem;color:var(--muted);line-height:1.6}
+  .ag-tag{
+    font-family:var(--mono);font-size:10px;
+    text-transform:uppercase;letter-spacing:.1em;
+    padding:5px 11px;border-radius:99px;
+    background:rgba(193,68,14,.1);color:var(--ember);
+    white-space:nowrap;
+  }
+
+  /* Form — the V2 anchor */
+  .form-sec{
+    background:linear-gradient(165deg,#3B2317 0%, #241812 100%);
+    color:var(--steam);
+    border-radius:0;
+    position:relative;overflow:hidden;
+  }
+  .form-sec::after{
+    content:'';position:absolute;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n2)' opacity='.28'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;pointer-events:none;
+  }
+  .form-sec .wrap{position:relative;z-index:2}
+  .form-sec h2{color:var(--steam)}
+  .form-sec .sec-label{color:var(--crema)}
+  .form-sec .sec-head p{color:rgba(251,247,241,.7)}
+
+  .form-card{
+    background:rgba(251,247,241,.05);
+    border:1px solid rgba(232,199,154,.18);
+    border-radius:20px;
+    padding:38px 34px;
+    backdrop-filter:blur(6px);
+    max-width:560px;
+  }
+  .field{margin-bottom:22px}
+  label{
+    display:block;
+    font-family:var(--mono);font-size:11px;
+    letter-spacing:.12em;text-transform:uppercase;
+    color:var(--crema);margin-bottom:9px;
+  }
+  input,select{
+    width:100%;
+    background:rgba(15,10,7,.45);
+    border:1px solid rgba(232,199,154,.2);
+    border-radius:11px;
+    padding:14px 16px;
+    color:var(--steam);
+    font-family:var(--body);font-size:.98rem;
+    transition:border-color .22s, background .22s;
+  }
+  input::placeholder{color:rgba(251,247,241,.32)}
+  input:focus,select:focus{
+    outline:none;
+    border-color:var(--ember);
+    background:rgba(15,10,7,.65);
+  }
+  select{appearance:none;cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23E8C79A' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 16px center;
+  }
+  .form-btn{
+    width:100%;
+    background:var(--ember);color:#fff;
+    border:none;border-radius:11px;
+    padding:16px;
+    font-family:var(--display);font-weight:600;font-size:1rem;
+    cursor:pointer;
+    transition:transform .2s, box-shadow .2s;
+    box-shadow:0 6px 22px rgba(193,68,14,.3);
+  }
+  .form-btn:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(193,68,14,.45)}
+  .form-btn:focus-visible{outline:3px solid var(--crema);outline-offset:2px}
+  .form-note{
+    font-family:var(--mono);font-size:10.5px;
+    color:rgba(251,247,241,.45);
+    margin-top:16px;line-height:1.6;
+  }
+  .form-msg{
+    margin-top:16px;padding:13px 16px;
+    background:rgba(22,101,52,.2);
+    border:1px solid rgba(22,101,52,.5);
+    border-radius:10px;
+    font-size:.9rem;color:#86EFAC;
+    display:none;
+  }
+  .form-msg.show{display:block}
+
+  /* CTA strip */
+  .cta-strip{
+    background:var(--paper);
+    text-align:center;
+  }
+  .cta-links{
+    display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+    margin-top:34px;
+  }
+  .cta-link{
+    display:inline-flex;align-items:center;gap:9px;
+    background:var(--steam);
+    border:1px solid var(--line);
+    color:var(--roast);
+    font-family:var(--display);font-weight:600;font-size:.96rem;
+    padding:14px 26px;border-radius:99px;
+    text-decoration:none;
+    transition:transform .22s, border-color .22s, background .22s;
+  }
+  .cta-link:hover{transform:translateY(-2px);border-color:var(--ember);background:#fff}
+  .cta-link:focus-visible{outline:3px solid var(--ember);outline-offset:2px}
+
+  /* Footer */
+  footer{
+    background:var(--ink);color:rgba(251,247,241,.55);
+    padding:56px 24px 82px;
+    font-size:.9rem;
+  }
+  .foot-grid{
+    max-width:1080px;margin:0 auto;
+    display:flex;justify-content:space-between;
+    align-items:flex-end;gap:32px;flex-wrap:wrap;
+  }
+  .foot-brand{
+    font-family:var(--display);font-weight:800;
+    font-size:1.35rem;color:var(--steam);
+    letter-spacing:-.02em;margin-bottom:8px;
+  }
+  .foot-links{display:flex;gap:22px;flex-wrap:wrap}
+  .foot-links a{color:rgba(251,247,241,.55);text-decoration:none;transition:color .2s}
+  .foot-links a:hover{color:var(--ember)}
+  .foot-fine{
+    max-width:1080px;margin:38px auto 0;
+    padding-top:24px;border-top:1px solid rgba(251,247,241,.1);
+    font-family:var(--mono);font-size:10.5px;
+    color:rgba(251,247,241,.3);line-height:1.7;
+  }
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+  .rv.in{opacity:1;transform:none}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .rv{opacity:1;transform:none}
+  }
+  @media(max-width:640px){
+    section{padding:66px 20px}
+    .agenda-row{grid-template-columns:1fr;gap:12px;padding:24px 22px}
+    .ag-tag{justify-self:start}
+    .hero{padding:60px 20px 80px;min-height:auto}
+    .cup-stage{width:150px}
+    .cup{width:150px;height:52px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== DEMO BAR ===== -->
+<div class="hx-topbar">
+  <b>HEXOLUTION</b> <span class="dot">/</span>
+  Sample Microsite V1 — Community Welcoming
+  <span class="dot">•</span>
+  Klien: Kapal Api Group
+  <span class="dot">•</span>
+  <span style="color:#94A3B8">Brand fiktif untuk demo. Konten & aset final disuplai klien.</span>
+</div>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Sahabat Kapal Api</span>
+    <h1>Setiap hal besar<br>mulai dari <em>satu seduhan</em>.</h1>
+    <p>Kamu baru saja masuk ke ruang yang isinya orang-orang yang lagi ngerjain sesuatu — bikin usaha, ngejar skill, atau sekadar cari teman seperjalanan. Ambil tempat duduk kamu.</p>
+    <a href="#gabung" class="hero-cta">
+      Ambil tempat duduk
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h11M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+
+  <div class="cup-stage">
+    <div class="steam-wrap" aria-hidden="true">
+      <span class="steam-wisp"></span>
+      <span class="steam-wisp"></span>
+      <span class="steam-wisp"></span>
+    </div>
+    <div class="cup"><span class="cup-label">Sedang diseduh</span></div>
+  </div>
+</header>
+
+<!-- ===== VALUE ===== -->
+<section>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-label">Apa yang kamu dapat</span>
+      <h2>Tiga hal yang bikin kamu betah di sini.</h2>
+      <p>Bukan grup yang cuma rame di awal terus sepi. Ini ruang yang dirawat.</p>
+    </div>
+
+    <div class="val-grid rv">
+      <div class="val">
+        <span class="val-num">SEDUHAN 01</span>
+        <h3>Orang yang searah</h3>
+        <p>Ribuan anak muda dari acara CoC Ruangguru dan sekitarnya. Sama-sama lagi bangun sesuatu, jadi obrolannya nyambung.</p>
+      </div>
+      <div class="val">
+        <span class="val-num">SEDUHAN 02</span>
+        <h3>Ilmu yang kepakai</h3>
+        <p>Sesi belajar, sharing praktisi, dan materi yang bisa langsung dipraktikkan minggu itu juga — bukan teori yang mengendap.</p>
+      </div>
+      <div class="val">
+        <span class="val-num">SEDUHAN 03</span>
+        <h3>Kesempatan duluan</h3>
+        <p>Info program, kolaborasi, dan kesempatan dari Kapal Api Group sampai ke kamu lebih dulu, sebelum diumumkan ke publik.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AGENDA ===== -->
+<section style="background:var(--steam);padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-label">Yang lagi jalan</span>
+      <h2>Agenda terdekat.</h2>
+      <p>Semua gratis untuk member komunitas. Cukup datang.</p>
+    </div>
+
+    <div class="agenda rv">
+      <div class="agenda-row">
+        <div class="ag-date">JUL<b>19</b>2026</div>
+        <div class="ag-body">
+          <h4>Ngobrol Bareng: Mulai Usaha Modal Nekat</h4>
+          <p>Sesi santai bareng founder yang mulai dari nol. Online, 19.30 WIB.</p>
+        </div>
+        <span class="ag-tag">Online</span>
+      </div>
+      <div class="agenda-row">
+        <div class="ag-date">JUL<b>26</b>2026</div>
+        <div class="ag-body">
+          <h4>Workshop: Bikin Konten yang Dilihat Orang</h4>
+          <p>Praktik langsung. Bawa HP, pulang bawa konten jadi. Jakarta Selatan.</p>
+        </div>
+        <span class="ag-tag">Offline</span>
+      </div>
+      <div class="agenda-row">
+        <div class="ag-date">AGT<b>09</b>2026</div>
+        <div class="ag-body">
+          <h4>Kopdar Perdana Sahabat Kapal Api</h4>
+          <p>Ketemu langsung sesama member. Kuota terbatas, prioritas member terdaftar.</p>
+          <span class="anchor-tag" title="Anchor V1→V2: prioritas kuota butuh data member terdaftar — sumbernya dari form di bawah.">⚓ Anchor V2</span>
+        </div>
+        <span class="ag-tag">Offline</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FORM (V2 ANCHOR) ===== -->
+<section class="form-sec" id="gabung">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-label">Ambil tempat duduk</span>
+      <h2>Daftarkan diri kamu.<span class="anchor-tag" title="Anchor V1→V2: form ini adalah titik awal database member. Field minat & asal acara jadi basis segmentasi di V2.">⚓ Anchor V2</span></h2>
+      <p>30 detik. Supaya kami tahu harus kirim apa ke kamu — bukan spam ke semua orang.</p>
+    </div>
+
+    <div class="form-card rv">
+      <div class="field">
+        <label for="nama">Nama panggilan</label>
+        <input type="text" id="nama" placeholder="Yang biasa dipanggil orang" autocomplete="given-name">
+      </div>
+
+      <div class="field">
+        <label for="wa">Nomor WhatsApp</label>
+        <input type="tel" id="wa" placeholder="08xx xxxx xxxx" autocomplete="tel">
+      </div>
+
+      <div class="field">
+        <label for="minat">Kamu lagi fokus ke apa?</label>
+        <select id="minat">
+          <option value="">Pilih satu</option>
+          <option value="usaha">Bangun usaha sendiri</option>
+          <option value="skill">Nambah skill / cari kerja</option>
+          <option value="komunitas">Cari komunitas & koneksi</option>
+          <option value="lainnya">Masih cari arah</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="kota">Kota kamu</label>
+        <input type="text" id="kota" placeholder="Contoh: Bandung" autocomplete="address-level2">
+      </div>
+
+      <button class="form-btn" id="submitBtn">Gabung Sahabat Kapal Api</button>
+
+      <div class="form-msg" id="formMsg">
+        ✓ Terkirim. Kami kabari lewat WhatsApp untuk agenda terdekat.
+      </div>
+
+      <p class="form-note">
+        Data kamu dipakai untuk mengirim info agenda &amp; program komunitas. Tidak dibagikan ke pihak ketiga.
+        <span class="addon" title="Add-on: penyimpanan data ke database, dedup nomor WA, dan auto-reply butuh backend + WhatsApp Business API. Termasuk di scope V2.">💰 Add-on</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-strip">
+  <div class="wrap">
+    <div class="sec-head rv" style="margin:0 auto 0;text-align:center">
+      <span class="sec-label" style="text-align:center">Tetap terhubung</span>
+      <h2>Jangan sampai ketinggalan.</h2>
+      <div class="cta-links">
+        <a href="#" class="cta-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7 1-.3.2-.5.1a6.6 6.6 0 01-1.9-1.2 7.3 7.3 0 01-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2A5.2 5.2 0 009 12.3a11.9 11.9 0 004.5 4 7.6 7.6 0 001.5.5 3.6 3.6 0 001.7.1 2.7 2.7 0 001.8-1.3 2.2 2.2 0 00.2-1.3c0-.1-.2-.2-.3-.3z"/></svg>
+          WhatsApp Channel
+        </a>
+        <a href="#" class="cta-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1a6.6 6.6 0 012.2.4 3.9 3.9 0 012.2 2.2 6.6 6.6 0 01.4 2.2c.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9a6.6 6.6 0 01-.4 2.2 3.9 3.9 0 01-2.2 2.2 6.6 6.6 0 01-2.2.4c-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1a6.6 6.6 0 01-2.2-.4 3.9 3.9 0 01-2.2-2.2 6.6 6.6 0 01-.4-2.2c-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9a6.6 6.6 0 01.4-2.2A3.9 3.9 0 014.9 2.7a6.6 6.6 0 012.2-.4c1.3-.1 1.7-.1 4.9-.1zm0 1.8c-3.1 0-3.5 0-4.7.1a4.8 4.8 0 00-1.7.3 2.9 2.9 0 00-1.6 1.6 4.8 4.8 0 00-.3 1.7C3.6 8.9 3.6 9.3 3.6 12s0 3.1.1 4.3a4.8 4.8 0 00.3 1.7 2.9 2.9 0 001.6 1.6 4.8 4.8 0 001.7.3c1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1a4.8 4.8 0 001.7-.3 2.9 2.9 0 001.6-1.6 4.8 4.8 0 00.3-1.7c.1-1.2.1-1.6.1-4.3s0-3.1-.1-4.3a4.8 4.8 0 00-.3-1.7 2.9 2.9 0 00-1.6-1.6 4.8 4.8 0 00-1.7-.3c-1.2-.1-1.6-.1-4.7-.1zm0 3.1a4.9 4.9 0 110 9.8 4.9 4.9 0 010-9.8zm0 8a3.1 3.1 0 100-6.2 3.1 3.1 0 000 6.2zm6.2-8.2a1.2 1.2 0 11-2.3 0 1.2 1.2 0 012.3 0z"/></svg>
+          Instagram
+        </a>
+        <a href="#" class="cta-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 10.1a5.5 5.5 0 01-3.6-1.3v6.4a5.7 5.7 0 11-4.9-5.6v2.9a2.8 2.8 0 102 2.7V2h2.9a5.5 5.5 0 003.6 4.9z"/></svg>
+          TikTok
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">Sahabat Kapal Api</div>
+      <div>Komunitas resmi Kapal Api Group.</div>
+    </div>
+    <div class="foot-links">
+      <a href="#gabung">Gabung</a>
+      <a href="#">Agenda</a>
+      <a href="#">Kontak</a>
+      <a href="#">Kebijakan Privasi</a>
+    </div>
+  </div>
+  <div class="foot-fine">
+    SAMPLE MICROSITE — dibangun oleh Hexolution (PT Sinar Kreatif Digitalia) untuk keperluan proposal.<br>
+    "Sahabat Kapal Api" adalah nama program fiktif untuk demonstrasi. Nama program, copy, dan aset visual final ditentukan oleh klien.
+  </div>
+</footer>
+
+<!-- ===== LEGEND ===== -->
+<div class="hx-legend">
+  <span><i class="sw" style="background:#0EA5E9"></i> 💰 Add-on — butuh backend/API tambahan (scope V2)</span>
+  <span><i class="sw" style="background:#166534"></i> ⚓ Anchor V2 — fondasi yang ditanam sejak V1</span>
+  <span style="color:#64748B">Hover untuk detail</span>
+</div>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  // Form demo (frontend only — real submit is the V2 add-on)
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    const nama = document.getElementById('nama').value.trim();
+    const wa   = document.getElementById('wa').value.trim();
+    const msg  = document.getElementById('formMsg');
+    if (!nama || !wa) {
+      msg.textContent = 'Isi nama dan nomor WhatsApp dulu ya.';
+      msg.style.background = 'rgba(193,68,14,.18)';
+      msg.style.borderColor = 'rgba(193,68,14,.5)';
+      msg.style.color = '#FCA5A5';
+      msg.classList.add('show');
+      return;
+    }
+    msg.textContent = '✓ Terkirim. Kami kabari lewat WhatsApp untuk agenda terdekat.';
+    msg.style.background = 'rgba(22,101,52,.2)';
+    msg.style.borderColor = 'rgba(22,101,52,.5)';
+    msg.style.color = '#86EFAC';
+    msg.classList.add('show');
+    // V2: POST ke endpoint → simpan ke DB → trigger WA welcome message
+    console.log('[DEMO] Payload V2:', {
+      nama, wa,
+      minat: document.getElementById('minat').value,
+      kota: document.getElementById('kota').value,
+      source: 'wa_channel',
+      event_origin: 'coc_ruangguru'
+    });
+  });
+</script>
+
+</body>
+</html>
