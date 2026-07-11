@@ -24,10 +24,16 @@
     revealTargets.forEach(function (el) { el.classList.add('in'); });
   }
 
-  // ---- Coffee brewing hero: restart via "Seduh Ulang" ----
+  // ---- Coffee brewing hero: cup reveal, steam ramp, logo pop, status text, restart ----
   var brewBtn = document.getElementById('brewBtn');
-  var cupLiquid = document.getElementById('cupLiquid');
+  var cupImg = document.getElementById('cupImg');
   var cupLogo = document.getElementById('cupLogo');
+  var steamWrap = document.querySelector('.steam-wrap');
+  var cupStatus = document.getElementById('cupStatus');
+  var BREW_MS = 3500;
+  var BUFFER_MS = 300;
+  var FADE_MS = 300;
+  var brewCompleteTimer = null;
 
   function restartCssAnimation(el) {
     if (!el) return;
@@ -37,12 +43,43 @@
     el.style.animation = '';
   }
 
+  function setStatusText(text) {
+    if (!cupStatus) return;
+    if (reduceMotion) {
+      cupStatus.textContent = text;
+      return;
+    }
+    cupStatus.classList.add('fade');
+    window.setTimeout(function () {
+      cupStatus.textContent = text;
+      cupStatus.classList.remove('fade');
+    }, FADE_MS);
+  }
+
+  function scheduleBrewComplete() {
+    if (brewCompleteTimer) window.clearTimeout(brewCompleteTimer);
+    if (reduceMotion) {
+      if (cupStatus) cupStatus.textContent = 'Silakan dinikmati';
+      return;
+    }
+    brewCompleteTimer = window.setTimeout(function () {
+      setStatusText('Silakan dinikmati');
+    }, BREW_MS + BUFFER_MS);
+  }
+  scheduleBrewComplete();
+
   if (brewBtn) {
     brewBtn.addEventListener('click', function () {
-      if (reduceMotion) return; // nothing to replay, cup is already shown filled
+      if (reduceMotion) return; // cup is already shown fully brewed, nothing to replay
       brewBtn.classList.add('is-replaying');
-      restartCssAnimation(cupLiquid);
+      restartCssAnimation(cupImg);
       restartCssAnimation(cupLogo);
+      restartCssAnimation(steamWrap);
+      if (cupStatus) {
+        cupStatus.classList.remove('fade');
+        cupStatus.textContent = 'Sedang diseduh...';
+      }
+      scheduleBrewComplete();
       window.setTimeout(function () {
         brewBtn.classList.remove('is-replaying');
       }, 500);

@@ -86,7 +86,13 @@ body{
   bottom:100%;
   width:120px;height:180px;
   pointer-events:none;
-  opacity:.5;
+  /* intensity ramps up while the cup is revealing, then settles at the .5 ambient level */
+  opacity:.15;
+  animation:steam-intensity 3.5s ease-out forwards;
+}
+@keyframes steam-intensity{
+  0%{opacity:.15}
+  100%{opacity:.5}
 }
 .steam-wisp{
   position:absolute;bottom:0;
@@ -185,7 +191,9 @@ h1 em::after{
 /* sits on an ember-colored surface — ember outline would vanish, so keep crema here for contrast */
 .hero-cta:focus-visible{outline:3px solid var(--crema);outline-offset:3px}
 
-/* The cup — signature anchor at bottom of hero */
+/* The cup — signature anchor at bottom of hero. Real cup-mockup.png (closed lid,
+   no visible interior liquid), so "brewing" is a bottom-to-top reveal of the
+   cup image itself rather than a liquid fill. */
 .cup-stage{
   position:absolute;
   bottom:-2px;left:50%;transform:translateX(-50%);
@@ -193,57 +201,46 @@ h1 em::after{
   z-index:3;
   text-align:center;
 }
-.cup{
+.cup-visual{
   position:relative;
-  width:190px;height:64px;
-  background:linear-gradient(180deg,#0F0A07 0%, #1A1410 100%);
-  border-radius:14px 14px 0 0;
-  border:1px solid rgba(232,199,154,.22);
-  border-bottom:none;
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
+  width:100%;
+  line-height:0;
 }
-.cup-liquid{
-  position:absolute;inset:0;
-  /* dark at the base, warmer/lighter toward the crema-flecked surface */
-  background:linear-gradient(180deg,#E8C79A 0%,#C1440E 32%,#6B3E22 68%,#2E1B10 100%);
+.cup-img{
+  width:100%;height:auto;display:block;
+  filter:drop-shadow(0 14px 20px rgba(0,0,0,.35));
   clip-path:inset(100% 0 0 0);
-  animation:brew-fill 3.5s cubic-bezier(.65,0,.35,1) forwards;
+  animation:cup-reveal 3.5s cubic-bezier(.25,.46,.45,.94) forwards;
 }
-.cup-liquid::after{
-  /* foam/surface sheen line, rides the top edge of the liquid */
-  content:'';position:absolute;top:0;left:0;right:0;height:6px;
-  background:linear-gradient(180deg,rgba(251,247,241,.5),rgba(251,247,241,0));
-}
-@keyframes brew-fill{
+@keyframes cup-reveal{
   0%{clip-path:inset(100% 0 0 0)}
   100%{clip-path:inset(0% 0 0 0)}
 }
-.cup-label{
-  position:relative;z-index:2;
-  font-family:var(--mono);
-  font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(251,247,241,.85);
-  text-shadow:0 1px 3px rgba(0,0,0,.5);
-}
-.cup-logo{
-  position:absolute;top:-46px;left:50%;
-  width:34px;height:34px;
-  background:var(--crema);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 16px rgba(0,0,0,.4);
+/* positioned over the tan sleeve band on cup-mockup.png (measured ~37.7%-64.9% of image height) */
+.cup-logo-badge{
+  position:absolute;
+  top:51.3%;left:50%;
+  width:21%;
+  transform:translate(-50%,-50%) scale(.6);
   opacity:0;
-  transform:translate(-50%,10px) scale(.6);
-  animation:logo-pop .8s cubic-bezier(.2,.8,.2,1) 2.7s forwards;
-  z-index:4;
+  filter:drop-shadow(0 3px 6px rgba(0,0,0,.3));
+  animation:logo-pop .6s cubic-bezier(.2,.8,.2,1) 3.8s forwards;
 }
-.cup-logo svg{width:16px;height:16px;color:var(--roast)}
+.cup-logo-badge img{width:100%;display:block}
 @keyframes logo-pop{
-  0%{opacity:0;transform:translate(-50%,10px) scale(.6)}
-  70%{opacity:1;transform:translate(-50%,-2px) scale(1.08)}
-  100%{opacity:1;transform:translate(-50%,0) scale(1)}
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}
+  70%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1)}
 }
+.cup-status{
+  margin-top:14px;
+  white-space:nowrap;
+  font-family:var(--mono);
+  font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(251,247,241,.85);
+  transition:opacity .3s ease;
+}
+.cup-status.fade{opacity:0}
 .brew-btn{
   margin-top:16px;
   display:inline-flex;align-items:center;gap:7px;
@@ -534,10 +531,12 @@ footer{
   align-items:flex-end;gap:32px;flex-wrap:wrap;
 }
 .foot-brand{
+  display:flex;align-items:center;gap:11px;
   font-family:var(--display);font-weight:800;
   font-size:1.35rem;color:var(--steam);
   letter-spacing:-.02em;margin-bottom:8px;
 }
+.foot-logo{height:30px;width:auto;display:block}
 .foot-links{display:flex;gap:22px;flex-wrap:wrap}
 .foot-links a{color:rgba(251,247,241,.55);text-decoration:none;transition:color .2s}
 .foot-links a:hover{color:var(--ember)}
@@ -555,7 +554,6 @@ footer{
   .ag-tag{justify-self:start}
   .hero{padding:60px 20px 150px;min-height:auto}
   .cup-stage{width:150px}
-  .cup{width:150px;height:52px}
 }
 
 /* ===== 13. REDUCED MOTION ===== */
@@ -563,7 +561,8 @@ footer{
   *{animation:none!important;transition:none!important}
   .rv,.val,.agenda-row,.form-card{opacity:1;transform:none}
   .hero-inner{opacity:1;transform:none}
-  .cup-liquid{clip-path:inset(0% 0 0 0)}
-  .cup-logo{opacity:1;transform:translate(-50%,0) scale(1)}
+  .steam-wrap{opacity:.5}
+  .cup-img{clip-path:inset(0% 0 0 0)}
+  .cup-logo-badge{opacity:1;transform:translate(-50%,-50%) scale(1)}
   .form-msg.show{opacity:1;transform:none}
 }
