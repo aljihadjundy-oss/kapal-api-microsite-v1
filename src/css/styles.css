@@ -3,9 +3,10 @@
    Motion CSS. Palette: --roast #3B2317 / --ember #C1440E /
    --crema #E8C79A / --steam #FBF7F1
    Sections: 1. Tokens & base  2. Demo annotation system
-   3. Steam  4. Hero + coffee brew  5. Sections/type
+   3. Steam  4. Hero + brew  5. Sections/type
    6. Scroll reveals  7. Value grid  8. Agenda  9. Form
    10. CTA links  11. Footer  12. Responsive  13. Reduced motion
+   14. Subpages (agenda / kebijakan privasi)
    ================================================================ */
 
 /* ===== 1. TOKENS & BASE ===== */
@@ -113,7 +114,7 @@ body{
   100% {opacity:0;transform:translateY(-50px) scaleY(1.2) skewX(3deg)}
 }
 
-/* ===== 4. HERO + COFFEE BREW ===== */
+/* ===== 4. HERO + BREW ===== */
 .hero{
   position:relative;
   min-height:88vh;
@@ -122,7 +123,7 @@ body{
     radial-gradient(120% 80% at 50% 110%, rgba(193,68,14,.16) 0%, transparent 60%),
     linear-gradient(170deg,#241812 0%, #3B2317 55%, #4A2E1E 100%);
   color:var(--steam);
-  padding:80px 24px 150px;
+  padding:80px 24px;
   overflow:hidden;
 }
 .hero::after{
@@ -131,10 +132,18 @@ body{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
   mix-blend-mode:overlay;pointer-events:none;
 }
-.hero-inner{
+
+/* two-column split: copy+CTA+main cup on the left, variant cluster on the right */
+.hero-grid{
   position:relative;z-index:2;
-  max-width:900px;margin:0 auto;
-  text-align:center;
+  max-width:1180px;margin:0 auto;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:24px;
+  align-items:center;
+  width:100%;
+}
+.hero-left{
   opacity:0;transform:translateY(14px);
   animation:hero-in .9s cubic-bezier(.2,.8,.2,1) .1s forwards;
 }
@@ -147,16 +156,15 @@ body{
   margin-bottom:28px;
   display:inline-flex;align-items:center;gap:10px;
 }
-.eyebrow::before,.eyebrow::after{
-  content:'';width:28px;height:1px;background:rgba(232,199,154,.4);
-}
+.eyebrow::before{content:'';width:28px;height:1px;background:rgba(232,199,154,.4)}
 h1{
   font-family:var(--display);
   font-weight:800;
-  font-size:clamp(2.6rem,7.5vw,5.4rem);
-  line-height:.98;
+  font-size:clamp(2.6rem,4.6vw,4.4rem);
+  line-height:1;
   letter-spacing:-.03em;
   margin-bottom:26px;
+  text-wrap:balance;
 }
 h1 em{
   font-style:normal;
@@ -172,10 +180,10 @@ h1 em::after{
   transform:rotate(-.6deg);
 }
 .hero p{
-  font-size:clamp(1.02rem,2.1vw,1.24rem);
+  font-size:clamp(1.02rem,1.6vw,1.2rem);
   line-height:1.65;
   color:rgba(251,247,241,.78);
-  max-width:600px;margin:0 auto 40px;
+  max-width:480px;margin:0 0 36px;
 }
 .hero-cta{
   display:inline-flex;align-items:center;gap:10px;
@@ -191,15 +199,13 @@ h1 em::after{
 /* sits on an ember-colored surface — ember outline would vanish, so keep crema here for contrast */
 .hero-cta:focus-visible{outline:3px solid var(--crema);outline-offset:3px}
 
-/* The cup — signature anchor at bottom of hero. Real cup-mockup.png (closed lid,
-   no visible interior liquid), so "brewing" is a bottom-to-top reveal of the
-   cup image itself rather than a liquid fill. */
+/* Main cup — supporting element under the headline, not the hero focal point.
+   Real cup-mockup.png (closed lid, no visible interior liquid), so "brewing"
+   is a bottom-to-top reveal of the cup image itself rather than a liquid fill. */
 .cup-stage{
-  position:absolute;
-  bottom:-2px;left:50%;transform:translateX(-50%);
-  width:190px;
-  z-index:3;
-  text-align:center;
+  margin-top:40px;
+  width:104px;
+  text-align:left;
 }
 .cup-visual{
   position:relative;
@@ -216,39 +222,24 @@ h1 em::after{
   0%{clip-path:inset(100% 0 0 0)}
   100%{clip-path:inset(0% 0 0 0)}
 }
-/* positioned over the tan sleeve band on cup-mockup.png (measured ~37.7%-64.9% of image height) */
-.cup-logo-badge{
-  position:absolute;
-  top:51.3%;left:50%;
-  width:21%;
-  transform:translate(-50%,-50%) scale(.6);
-  opacity:0;
-  filter:drop-shadow(0 3px 6px rgba(0,0,0,.3));
-  animation:logo-pop .6s cubic-bezier(.2,.8,.2,1) 3.8s forwards;
-}
-.cup-logo-badge img{width:100%;display:block}
-@keyframes logo-pop{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}
-  70%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}
-  100%{opacity:1;transform:translate(-50%,-50%) scale(1)}
-}
 .cup-status{
-  margin-top:14px;
+  margin-top:12px;
   white-space:nowrap;
   font-family:var(--mono);
-  font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  font-size:9px;letter-spacing:.12em;text-transform:uppercase;
   color:rgba(251,247,241,.85);
   transition:opacity .3s ease;
 }
 .cup-status.fade{opacity:0}
 .brew-btn{
-  margin-top:16px;
+  margin-top:14px;
   display:inline-flex;align-items:center;gap:7px;
+  white-space:nowrap;
   background:rgba(251,247,241,.06);
   border:1px solid rgba(232,199,154,.32);
   color:var(--crema);
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
-  padding:9px 18px;border-radius:99px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:8px 16px;border-radius:99px;
   cursor:pointer;
   transition:transform .2s, border-color .2s, background .2s;
 }
@@ -256,6 +247,51 @@ h1 em::after{
 .brew-btn:active{opacity:.8}
 .brew-btn svg{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .brew-btn.is-replaying svg{transform:rotate(-330deg)}
+
+/* ---- Variant cluster (right column): 4 cups, same mockup image, tinted
+   per variant via filter so the sleeve band reads as a different flavor.
+   No logo badge on any of these — that mark stays exclusive to the footer. ---- */
+.cup-cluster{
+  position:relative;
+  width:100%;
+  max-width:400px;
+  aspect-ratio:1/1.02;
+  margin:0 auto;
+}
+.cluster-cup{
+  position:absolute;
+  opacity:0;
+  animation:cluster-in .7s cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes cluster-in{
+  0%{opacity:0;transform:translateY(26px) rotate(var(--r,0deg))}
+  100%{opacity:1;transform:translateY(0) rotate(var(--r,0deg))}
+}
+.cluster-cup-float{animation:cup-float 3.6s ease-in-out infinite}
+.cluster-cup-float img{width:100%;display:block;filter:drop-shadow(0 16px 22px rgba(0,0,0,.4)) var(--tint)}
+@keyframes cup-float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+.cluster-label{
+  display:block;margin-top:10px;text-align:center;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(251,247,241,.9);
+  text-shadow:0 2px 6px rgba(0,0,0,.5);
+}
+.cluster-cup-1{ left:2%;   top:0%;  width:24%; z-index:1; --r:-12deg }
+.cluster-cup-2{ left:76%;  top:0%;  width:24%; z-index:2; --r:10deg }
+.cluster-cup-3{ left:24%;  top:40%; width:30%; z-index:3; --r:-8deg }
+.cluster-cup-4{ left:40%;  top:24%; width:38%; z-index:4; --r:2deg }
+.cluster-cup-1{ animation-delay:.2s }
+.cluster-cup-2{ animation-delay:.35s }
+.cluster-cup-3{ animation-delay:.5s }
+.cluster-cup-4{ animation-delay:.65s }
+/* float only kicks in once the entrance settles (delay + duration above) */
+.cluster-cup-1 .cluster-cup-float{ animation-delay:.9s }
+.cluster-cup-2 .cluster-cup-float{ animation-delay:1.05s }
+.cluster-cup-3 .cluster-cup-float{ animation-delay:1.2s }
+.cluster-cup-4 .cluster-cup-float{ animation-delay:1.35s }
 
 /* ===== 5. SECTIONS / TYPE ===== */
 section{padding:96px 24px}
@@ -336,8 +372,11 @@ h2{
   gap:24px;align-items:center;
   padding:26px 30px;
   border-bottom:1px dashed var(--line);
-  transition:background .25s, opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1);
+  transition:background .25s, box-shadow .25s, opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1);
   opacity:0;transform:translateY(20px);
+  /* each row is a link through to its agenda.html detail anchor */
+  text-decoration:none;color:inherit;cursor:pointer;
+  position:relative;
 }
 /* stagger: 0.08s per row once the agenda list enters the viewport */
 .agenda.in .agenda-row{opacity:1;transform:none}
@@ -345,7 +384,7 @@ h2{
 .agenda.in .agenda-row:nth-child(2){transition-delay:.08s}
 .agenda.in .agenda-row:nth-child(3){transition-delay:.16s}
 .agenda-row:last-child{border-bottom:none}
-.agenda-row:hover{background:#EFE5D8}
+.agenda-row:hover{background:#EFE5D8;box-shadow:inset 0 0 0 1px var(--line), 0 8px 20px rgba(59,35,23,.08);z-index:1}
 .ag-date{
   font-family:var(--mono);
   font-size:.82rem;color:var(--ember);
@@ -480,6 +519,17 @@ select{appearance:none;cursor:pointer;
 }
 .form-msg.show{display:block}
 .form-msg.pop{opacity:1;transform:scale(1)}
+.wa-followup{
+  display:none;
+  margin-top:10px;
+  font-family:var(--display);font-weight:600;font-size:.9rem;
+  color:var(--crema);text-decoration:none;
+  opacity:0;transform:translateY(-4px);
+  transition:opacity .3s cubic-bezier(.2,.8,.2,1), transform .3s cubic-bezier(.2,.8,.2,1), color .2s;
+}
+.wa-followup:hover{color:var(--steam)}
+.wa-followup.show{display:inline-block}
+.wa-followup.pop{opacity:1;transform:translateY(0)}
 
 /* ===== 10. CTA STRIP & LINKS ===== */
 .cta-strip{
@@ -548,21 +598,161 @@ footer{
 }
 
 /* ===== 12. RESPONSIVE ===== */
+@media(min-width:768px) and (max-width:1023px){
+  /* narrower right column here shrinks the cluster below its 400px max,
+     so every label needs more clearance from its neighbors' bounding boxes */
+  .cluster-cup-1{left:2%;  top:-10%}
+  .cluster-cup-2{left:78%; top:-10%}
+  .cluster-cup-3{left:14%; top:58%}
+  .cluster-cup-4{left:42%; top:42%}
+  .cluster-label{font-size:8.5px}
+}
+@media(max-width:767px){
+  .hero-grid{grid-template-columns:1fr;gap:56px}
+  .hero-right{display:flex;justify-content:center}
+  .cup-cluster{max-width:300px}
+  /* smaller stage: pull the back cups further outward so their labels
+     clear the front cups' bounding boxes */
+  .cluster-cup-1{left:-8%}
+  .cluster-cup-2{left:86%}
+  .cluster-label{font-size:8px;letter-spacing:.06em}
+}
 @media(max-width:640px){
   section{padding:66px 20px}
   .agenda-row{grid-template-columns:1fr;gap:12px;padding:24px 22px}
   .ag-tag{justify-self:start}
-  .hero{padding:60px 20px 150px;min-height:auto}
-  .cup-stage{width:150px}
+  .hero{padding:56px 20px 64px;min-height:auto}
+  .hero p{max-width:none}
+  .cup-stage{width:92px}
 }
 
 /* ===== 13. REDUCED MOTION ===== */
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   .rv,.val,.agenda-row,.form-card{opacity:1;transform:none}
-  .hero-inner{opacity:1;transform:none}
+  .hero-left{opacity:1;transform:none}
   .steam-wrap{opacity:.5}
   .cup-img{clip-path:inset(0% 0 0 0)}
-  .cup-logo-badge{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .cluster-cup{opacity:1;transform:rotate(var(--r,0deg))}
   .form-msg.show{opacity:1;transform:none}
+  .wa-followup.show{opacity:1;transform:none}
+}
+
+/* ===== 14. SUBPAGES (agenda / kebijakan privasi) ===== */
+.page-head{
+  background:linear-gradient(165deg,#3B2317 0%, #241812 100%);
+  color:var(--steam);
+  padding:52px 24px 60px;
+  position:relative;overflow:hidden;
+}
+.page-head::after{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n3'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n3)' opacity='.28'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;pointer-events:none;
+}
+.page-head .wrap{position:relative;z-index:2}
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--crema);
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;margin-bottom:26px;
+}
+.back-link svg{transition:transform .2s}
+.back-link:hover{color:var(--steam)}
+.back-link:hover svg{transform:translateX(-3px)}
+.page-head h1{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(2rem,4.4vw,3rem);
+  letter-spacing:-.02em;line-height:1.08;
+  max-width:680px;
+}
+.page-head p{
+  margin-top:16px;font-size:1.02rem;line-height:1.6;
+  color:rgba(251,247,241,.75);max-width:560px;
+}
+
+/* -- agenda detail sections -- */
+.agenda-detail{
+  padding:64px 24px;
+  border-bottom:1px solid var(--line);
+  scroll-margin-top:24px;
+}
+.agenda-detail:nth-of-type(even){background:var(--paper)}
+.ad-meta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.ad-title{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(1.5rem,3.2vw,2.2rem);
+  color:var(--roast);line-height:1.14;margin-bottom:12px;
+  max-width:680px;
+}
+.ad-when{
+  font-family:var(--mono);font-size:.85rem;color:var(--ember);
+  margin-bottom:32px;
+}
+.ad-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;margin-top:8px}
+.ad-block-label{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ember);margin-bottom:14px;display:block;
+}
+.ad-concept{font-size:1rem;line-height:1.72;color:var(--muted);margin-bottom:36px}
+
+.rundown{position:relative;padding-left:26px;margin-bottom:8px}
+.rundown::before{content:'';position:absolute;left:4px;top:6px;bottom:6px;width:1px;background:var(--line)}
+.rundown-item{position:relative;padding-bottom:20px}
+.rundown-item:last-child{padding-bottom:0}
+.rundown-item::before{
+  content:'';position:absolute;left:-26px;top:4px;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--ember);border:2px solid var(--steam);
+}
+.agenda-detail:nth-of-type(even) .rundown-item::before{border-color:var(--paper)}
+.rundown-time{font-family:var(--mono);font-size:.78rem;color:var(--ember);display:block;margin-bottom:3px}
+.rundown-desc{font-size:.93rem;color:var(--roast);line-height:1.5}
+
+.guest-card{
+  background:var(--steam);border:1px solid var(--line);border-radius:16px;
+  padding:22px 24px;margin-bottom:28px;
+}
+.agenda-detail:nth-of-type(even) .guest-card{background:#fff}
+.guest-name{font-family:var(--display);font-weight:700;color:var(--roast);font-size:1.06rem}
+.guest-role{font-size:.88rem;color:var(--muted);margin-top:5px;line-height:1.5}
+.ad-cta{
+  display:inline-flex;align-items:center;gap:9px;
+  background:var(--ember);color:#fff;
+  font-family:var(--display);font-weight:600;font-size:.92rem;
+  padding:13px 24px;border-radius:99px;
+  text-decoration:none;
+  box-shadow:0 6px 18px rgba(193,68,14,.3);
+  transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s;
+}
+.ad-cta:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 10px 26px rgba(193,68,14,.45)}
+.ad-cta:active{opacity:.8;transform:none}
+
+/* -- privacy policy -- */
+.policy-body{padding:64px 24px}
+.policy-body .wrap{max-width:760px}
+.policy-section{margin-bottom:40px}
+.policy-section:last-child{margin-bottom:0}
+.policy-section h2{
+  font-family:var(--display);font-weight:700;
+  font-size:1.3rem;color:var(--roast);margin-bottom:14px;
+}
+.policy-section p, .policy-section li{
+  font-size:.98rem;line-height:1.72;color:var(--muted);
+}
+.policy-section ul{padding-left:20px;margin-top:8px}
+.policy-section li{margin-bottom:6px}
+.policy-section a{color:var(--ember)}
+.policy-effective{
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-top:48px;padding-top:24px;border-top:1px solid var(--line);
+}
+
+@media(max-width:767px){
+  .ad-grid{grid-template-columns:1fr;gap:32px}
+}
+@media(max-width:640px){
+  .page-head{padding:40px 20px 48px}
+  .agenda-detail{padding:48px 20px}
+  .policy-body{padding:48px 20px}
 }
