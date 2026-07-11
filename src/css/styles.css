@@ -254,8 +254,8 @@ h1 em::after{
 .cup-cluster{
   position:relative;
   width:100%;
-  max-width:400px;
-  aspect-ratio:1/1.02;
+  max-width:460px;
+  aspect-ratio:1/1.08;
   margin:0 auto;
 }
 .cluster-cup{
@@ -279,10 +279,10 @@ h1 em::after{
   color:rgba(251,247,241,.9);
   text-shadow:0 2px 6px rgba(0,0,0,.5);
 }
-.cluster-cup-1{ left:2%;   top:0%;  width:24%; z-index:1; --r:-12deg }
-.cluster-cup-2{ left:76%;  top:0%;  width:24%; z-index:2; --r:10deg }
-.cluster-cup-3{ left:24%;  top:40%; width:30%; z-index:3; --r:-8deg }
-.cluster-cup-4{ left:40%;  top:24%; width:38%; z-index:4; --r:2deg }
+.cluster-cup-1{ left:0%;   top:0%;  width:24%; z-index:1; --r:-12deg }
+.cluster-cup-2{ left:74%;  top:2%;  width:24%; z-index:2; --r:10deg }
+.cluster-cup-3{ left:10%;  top:48%; width:28%; z-index:3; --r:-8deg }
+.cluster-cup-4{ left:34%;  top:34%; width:36%; z-index:4; --r:2deg }
 .cluster-cup-1{ animation-delay:.2s }
 .cluster-cup-2{ animation-delay:.35s }
 .cluster-cup-3{ animation-delay:.5s }
@@ -421,6 +421,12 @@ h2{
 .form-sec .sec-label{color:var(--crema)}
 .form-sec .sec-head p{color:rgba(251,247,241,.7)}
 
+.form-layout{
+  display:grid;
+  grid-template-columns:minmax(0,560px) minmax(0,1fr);
+  gap:48px;
+  align-items:start;
+}
 .form-card{
   background:rgba(251,247,241,.05);
   border:1px solid rgba(232,199,154,.18);
@@ -431,6 +437,43 @@ h2{
   /* scale pop, not the default slide-up, when it enters the viewport */
   transform:scale(.95);
 }
+
+/* -- guest preview: fills the empty space beside the form card -- */
+.guest-preview{padding-top:6px}
+.guest-preview-label{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--crema);margin-bottom:18px;display:block;
+}
+.guest-mini-list{display:flex;flex-direction:column;gap:12px}
+.guest-mini{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(251,247,241,.05);
+  border:1px solid rgba(232,199,154,.16);
+  border-radius:14px;
+  padding:12px;
+  text-decoration:none;color:inherit;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1), border-color .22s, background .22s, box-shadow .22s;
+}
+.guest-mini:hover{transform:translateX(4px);border-color:var(--ember);background:rgba(193,68,14,.12);box-shadow:0 8px 20px rgba(0,0,0,.25)}
+.guest-mini:active{transform:translateX(2px);opacity:.9}
+.guest-mini-photo{
+  width:60px;height:60px;flex-shrink:0;
+  border-radius:12px;object-fit:cover;
+  border:1px solid rgba(232,199,154,.25);
+}
+.guest-mini-info{min-width:0}
+.guest-mini-name{font-family:var(--display);font-weight:700;font-size:.98rem;color:var(--steam)}
+.guest-mini-role{font-size:.8rem;color:rgba(251,247,241,.65);margin-top:2px;line-height:1.4}
+.guest-mini-event{
+  font-family:var(--mono);font-size:.68rem;color:var(--crema);
+  margin-top:6px;letter-spacing:.02em;line-height:1.4;
+}
+/* stagger: 0.1s per card once the guest preview enters the viewport */
+.guest-preview .guest-mini{opacity:0;transition:opacity .6s cubic-bezier(.2,.8,.2,1), transform .22s cubic-bezier(.2,.8,.2,1), border-color .22s, background .22s, box-shadow .22s}
+.guest-preview.in .guest-mini{opacity:1}
+.guest-preview.in .guest-mini:nth-child(1){transition-delay:.1s}
+.guest-preview.in .guest-mini:nth-child(2){transition-delay:.2s}
+.guest-preview.in .guest-mini:nth-child(3){transition-delay:.3s}
 .form-card.in{transform:scale(1)}
 .field{margin-bottom:22px}
 label{
@@ -586,7 +629,7 @@ footer{
   font-size:1.35rem;color:var(--steam);
   letter-spacing:-.02em;margin-bottom:8px;
 }
-.foot-logo{height:30px;width:auto;display:block}
+.foot-logo{height:44px;width:auto;display:block}
 .foot-links{display:flex;gap:22px;flex-wrap:wrap}
 .foot-links a{color:rgba(251,247,241,.55);text-decoration:none;transition:color .2s}
 .foot-links a:hover{color:var(--ember)}
@@ -599,22 +642,16 @@ footer{
 
 /* ===== 12. RESPONSIVE ===== */
 @media(min-width:768px) and (max-width:1023px){
-  /* narrower right column here shrinks the cluster below its 400px max,
-     so every label needs more clearance from its neighbors' bounding boxes */
-  .cluster-cup-1{left:2%;  top:-10%}
-  .cluster-cup-2{left:78%; top:-10%}
-  .cluster-cup-3{left:14%; top:58%}
-  .cluster-cup-4{left:42%; top:42%}
   .cluster-label{font-size:8.5px}
+}
+@media(max-width:900px){
+  .form-layout{grid-template-columns:1fr}
+  .guest-preview{padding-top:8px}
 }
 @media(max-width:767px){
   .hero-grid{grid-template-columns:1fr;gap:56px}
   .hero-right{display:flex;justify-content:center}
-  .cup-cluster{max-width:300px}
-  /* smaller stage: pull the back cups further outward so their labels
-     clear the front cups' bounding boxes */
-  .cluster-cup-1{left:-8%}
-  .cluster-cup-2{left:86%}
+  .cup-cluster{max-width:320px}
   .cluster-label{font-size:8px;letter-spacing:.06em}
 }
 @media(max-width:640px){
@@ -636,6 +673,7 @@ footer{
   .cluster-cup{opacity:1;transform:rotate(var(--r,0deg))}
   .form-msg.show{opacity:1;transform:none}
   .wa-followup.show{opacity:1;transform:none}
+  .guest-preview .guest-mini{opacity:1}
 }
 
 /* ===== 14. SUBPAGES (agenda / kebijakan privasi) ===== */

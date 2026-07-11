@@ -149,50 +149,82 @@
       <p>30 detik. Supaya kami tahu harus kirim apa ke kamu — bukan spam ke semua orang.</p>
     </div>
 
-    <div class="form-card rv">
-      <div class="field">
-        <label for="nama">Nama panggilan</label>
-        <input type="text" id="nama" placeholder="Yang biasa dipanggil orang" autocomplete="given-name">
+    <div class="form-layout">
+      <div class="form-card rv">
+        <div class="field">
+          <label for="nama">Nama panggilan</label>
+          <input type="text" id="nama" placeholder="Yang biasa dipanggil orang" autocomplete="given-name">
+        </div>
+
+        <div class="field">
+          <label for="wa">Nomor WhatsApp</label>
+          <input type="tel" id="wa" placeholder="08xx xxxx xxxx" autocomplete="tel">
+        </div>
+
+        <div class="field">
+          <label for="minat">Kamu lagi fokus ke apa?</label>
+          <select id="minat">
+            <option value="">Pilih satu</option>
+            <option value="usaha">Bangun usaha sendiri</option>
+            <option value="skill">Nambah skill / cari kerja</option>
+            <option value="komunitas">Cari komunitas & koneksi</option>
+            <option value="lainnya">Masih cari arah</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="kota">Kota kamu</label>
+          <input type="text" id="kota" placeholder="Contoh: Bandung" autocomplete="address-level2">
+        </div>
+
+        <button class="form-btn" id="submitBtn" type="button">
+          <span class="btn-spinner" aria-hidden="true"></span>
+          <span class="btn-label">Gabung Sahabat Kapal Api</span>
+          <svg class="btn-check" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <div class="form-msg" id="formMsg" role="status" aria-live="polite">
+          ✓ Terkirim. Kami kabari lewat WhatsApp untuk agenda terdekat.
+        </div>
+        <a href="https://wa.me/6282299223322" id="waFollowup" class="wa-followup" target="_blank" rel="noopener noreferrer">
+          Lanjut chat via WhatsApp →
+        </a>
+
+        <p class="form-note">
+          Data kamu dipakai untuk mengirim info agenda &amp; program komunitas. Tidak dibagikan ke pihak ketiga.
+          <span class="addon" title="Add-on: penyimpanan data ke database, dedup nomor WA, dan auto-reply butuh backend + WhatsApp Business API. Termasuk di scope V2.">💰 Add-on</span>
+        </p>
       </div>
 
-      <div class="field">
-        <label for="wa">Nomor WhatsApp</label>
-        <input type="tel" id="wa" placeholder="08xx xxxx xxxx" autocomplete="tel">
+      <div class="guest-preview rv">
+        <span class="guest-preview-label">Tamu undangan bulan ini</span>
+        <div class="guest-mini-list">
+          <a class="guest-mini" href="agenda.html#agenda-1">
+            <img class="guest-mini-photo" src="assets/images/guests/ferry-irwandi.jpg" alt="Ferry Irwandi">
+            <div class="guest-mini-info">
+              <div class="guest-mini-name">Ferry Irwandi</div>
+              <div class="guest-mini-role">Content Creator &amp; Pengamat Ekonomi</div>
+              <div class="guest-mini-event">Ngobrol Bareng: Mulai Usaha Modal Nekat</div>
+            </div>
+          </a>
+          <a class="guest-mini" href="agenda.html#agenda-2">
+            <img class="guest-mini-photo" src="assets/images/guests/cania-citta.jpg" alt="Cania Citta">
+            <div class="guest-mini-info">
+              <div class="guest-mini-name">Cania Citta</div>
+              <div class="guest-mini-role">Content Creator &amp; Entrepreneur</div>
+              <div class="guest-mini-event">Workshop: Bikin Konten yang Dilihat Orang</div>
+            </div>
+          </a>
+          <a class="guest-mini" href="agenda.html#agenda-3">
+            <img class="guest-mini-photo" src="assets/images/guests/coki-pardede.jpg" alt="Coki Pardede">
+            <div class="guest-mini-info">
+              <div class="guest-mini-name">Coki Pardede</div>
+              <div class="guest-mini-role">Komedian &amp; Content Creator</div>
+              <div class="guest-mini-event">Kopdar Perdana Sahabat Kapal Api</div>
+            </div>
+          </a>
+        </div>
       </div>
-
-      <div class="field">
-        <label for="minat">Kamu lagi fokus ke apa?</label>
-        <select id="minat">
-          <option value="">Pilih satu</option>
-          <option value="usaha">Bangun usaha sendiri</option>
-          <option value="skill">Nambah skill / cari kerja</option>
-          <option value="komunitas">Cari komunitas & koneksi</option>
-          <option value="lainnya">Masih cari arah</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="kota">Kota kamu</label>
-        <input type="text" id="kota" placeholder="Contoh: Bandung" autocomplete="address-level2">
-      </div>
-
-      <button class="form-btn" id="submitBtn" type="button">
-        <span class="btn-spinner" aria-hidden="true"></span>
-        <span class="btn-label">Gabung Sahabat Kapal Api</span>
-        <svg class="btn-check" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-
-      <div class="form-msg" id="formMsg" role="status" aria-live="polite">
-        ✓ Terkirim. Kami kabari lewat WhatsApp untuk agenda terdekat.
-      </div>
-      <a href="https://wa.me/6282299223322" id="waFollowup" class="wa-followup" target="_blank" rel="noopener noreferrer">
-        Lanjut chat via WhatsApp →
-      </a>
-
-      <p class="form-note">
-        Data kamu dipakai untuk mengirim info agenda &amp; program komunitas. Tidak dibagikan ke pihak ketiga.
-        <span class="addon" title="Add-on: penyimpanan data ke database, dedup nomor WA, dan auto-reply butuh backend + WhatsApp Business API. Termasuk di scope V2.">💰 Add-on</span>
-      </p>
     </div>
   </div>
 </section>
@@ -225,7 +257,7 @@
 <footer>
   <div class="foot-grid">
     <div>
-      <div class="foot-brand"><img src="assets/images/logo-footer.png" alt="" class="foot-logo">Sahabat Kapal Api</div>
+      <div class="foot-brand"><img src="assets/images/logo-footer.svg" alt="" class="foot-logo">Sahabat Kapal Api</div>
       <div>Komunitas resmi Kapal Api Group.</div>
     </div>
     <div class="foot-links">
